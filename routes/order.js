@@ -43,7 +43,7 @@ router.put('/:id', verifyTokenAndAdmin, async (req, res) => {
 router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 	try {
 		await Order.findByIdAndDelete(req.params.id)
-		res.status(200).json('Товар был удалён из корзины')
+		res.status(200).json('Заказ был удалён')
 	} catch (error) {
 		res.status(500).json(error)
 	}
@@ -63,8 +63,15 @@ router.get('/find/:id', verifyTokenAndAuth, async (req, res) => {
 // GET ALL ORDERDS
 
 router.get('/', verifyTokenAndAdmin, async (req, res) => {
+	const qNew = req.query.new
+
 	try {
-		const orders = await Order.find()
+		let orders
+		if (qNew) {
+			orders = await Order.find().sort({ createdAt: -1 })
+		} else {
+			orders = await Order.find()
+		}
 		res.status(200).json(orders)
 	} catch (error) {
 		res.status(500).json(error)
@@ -75,20 +82,19 @@ router.get('/', verifyTokenAndAdmin, async (req, res) => {
 
 router.get('/income', verifyTokenAndAdmin, async (req, res) => {
 	const date = new Date()
-	const lastMonth = new Date(date.setMonth(date.getMonth() - 1))
-	const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1))
+	const lastYear = new Date(date.setFullYear(date.getFullYear() - 1))
 
 	try {
 		const income = await Order.aggregate([
-			{ $match: { createdAt: { $gte: previousMonth } } },
-			{ $project: { month: { $month: '$createdAt' }, sales: '$amount' } },
+			{ $match: { createdAt: { $gte: lastYear } } },
+			{ $project: { month: { $month: '$createdAt' }, sales: '$price' } },
 			{
 				$group: {
 					_id: '$month',
 					total: { $sum: '$sales' }
 				}
 			}
-		])
+		]).sort({ _id: 1 })
 
 		res.status(200).json(income)
 	} catch (error) {

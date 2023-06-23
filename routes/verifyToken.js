@@ -14,11 +14,12 @@ const verifyToken = (req, res, next) => {
 			}
 		})
 	} else {
-		return res.status(401).json('Вы не авторизованны!')
+		return res.status(401).json('Доступ запрещён')
 	}
 }
 
 const verifyTokenAndAuth = (req, res, next) => {
+	console.log(req.body, req.user)
 	verifyToken(req, res, () => {
 		if (req.user.id === req.params.id || req.user.isAdmin) {
 			next()

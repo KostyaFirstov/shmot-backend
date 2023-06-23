@@ -16,8 +16,8 @@ router.post('/register/', async (req, res) => {
 
 	try {
 		const savedUser = await newUser.save()
-		res.status(201).json(savedUser)
-		console.log(savedUser)
+		const { password, ...others } = savedUser._doc
+		res.status(201).json(others)
 	} catch (error) {
 		res.status(500).json(error)
 	}
@@ -26,7 +26,7 @@ router.post('/register/', async (req, res) => {
 // LOGIN
 router.post('/login', async (req, res) => {
 	try {
-		const user = await User.findOne({ username: req.body.username })
+		const user = await User.findOne({ email: req.body.email })
 		if (!user) {
 			res.status(401).json('Неправильный логин или пароль')
 			return
@@ -57,6 +57,29 @@ router.post('/login', async (req, res) => {
 		res.status(200).json({ ...others, accessToken })
 	} catch (error) {
 		res.status(500).json(error)
+	}
+})
+
+// AUTH ME
+
+router.post('/me', async (req, res) => {
+	try {
+		const user = await User.findById(req.userId)
+
+		if (!user) {
+			return res.status(404).json({
+				message: 'Пользователь не найден'
+			})
+		}
+
+		const { passwordHash, ...userData } = user._doc
+
+		res.json(userData)
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({
+			message: 'Нет доступа'
+		})
 	}
 })
 
