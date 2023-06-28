@@ -6,7 +6,11 @@ const DropSchema = new mongoose.Schema(
 		desc: { type: String, required: true },
 		text: { type: String, required: true },
 		date: { type: String, required: true },
-		img: { type: Array, required: true }
+		img: { type: Array, required: true },
+		viewsCount: {
+			type: Number,
+			default: 0
+		}
 	},
 	{ timestamps: true }
 )

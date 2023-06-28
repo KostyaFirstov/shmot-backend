@@ -93,7 +93,9 @@ router.get('/', async (req, res) => {
 					$in: [qCategory]
 				},
 				brand: qBrand,
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			}).sort(sortValue)
 		} else if (qGender && qBrand && qSort) {
 			let sortValue
@@ -113,7 +115,9 @@ router.get('/', async (req, res) => {
 
 			products = await Product.find({
 				brand: qBrand,
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			}).sort(sortValue)
 		} else if (qGender && qCategory && qSort) {
 			let sortValue
@@ -135,7 +139,9 @@ router.get('/', async (req, res) => {
 				categories: {
 					$in: [qCategory]
 				},
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			}).sort(sortValue)
 		} else if (qBrand && qCategory && qSort) {
 			let sortValue
@@ -176,7 +182,9 @@ router.get('/', async (req, res) => {
 			}
 
 			products = await Product.find({
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			}).sort(sortValue)
 		} else if (qBrand && qSort) {
 			let sortValue
@@ -224,19 +232,25 @@ router.get('/', async (req, res) => {
 					$in: [qCategory]
 				},
 				brand: qBrand,
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			})
 		} else if (qGender && qCategory) {
 			products = await Product.find({
 				categories: {
 					$in: [qCategory]
 				},
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			})
 		} else if (qGender && qBrand) {
 			products = await Product.find({
 				brand: qBrand,
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			})
 		} else if (qCategory && qBrand) {
 			products = await Product.find({
@@ -264,7 +278,9 @@ router.get('/', async (req, res) => {
 			products = await Product.find().sort(sortValue)
 		} else if (qGender) {
 			products = await Product.find({
-				gender: qGender
+				gender: {
+					$in: [qGender]
+				}
 			})
 		} else if (qCategory) {
 			products = await Product.find({
