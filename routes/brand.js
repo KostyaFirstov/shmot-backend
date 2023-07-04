@@ -51,9 +51,9 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 
 // GET BRAND
 
-router.get('/find/:id', async (req, res) => {
+router.get('/:title', async (req, res) => {
 	try {
-		const brand = await Brand.findById(req.params.id)
+		const brand = await Brand.find({ link: req.params.title })
 		res.status(200).json(brand)
 	} catch (error) {
 		res.status(500).json(error)

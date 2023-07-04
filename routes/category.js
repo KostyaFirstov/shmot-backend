@@ -51,9 +51,9 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 
 // GET CATEGORY
 
-router.get('/find/:id', async (req, res) => {
+router.get('/:title', async (req, res) => {
 	try {
-		const category = await Category.findById(req.params.id)
+		const category = await Category.find({ name: req.params.title })
 		res.status(200).json(category)
 	} catch (error) {
 		res.status(500).json(error)

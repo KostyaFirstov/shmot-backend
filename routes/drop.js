@@ -51,12 +51,12 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 
 // GET DROP
 
-router.get('/find/:id', async (req, res) => {
+router.get('/:title', async (req, res) => {
 	try {
-		const postId = req.params.id
+		const dropTitle = req.params.title
 
 		const drop = await Drop.findOneAndUpdate(
-			{ _id: postId },
+			{ title: dropTitle },
 			{
 				$inc: { viewsCount: 1 }
 			},

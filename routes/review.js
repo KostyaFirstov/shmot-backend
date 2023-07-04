@@ -64,6 +64,7 @@ router.get('/:title', async (req, res) => {
 				returnDocument: 'after'
 			}
 		)
+		console.log(review)
 		res.status(200).json(review)
 	} catch (error) {
 		res.status(500).json(error)

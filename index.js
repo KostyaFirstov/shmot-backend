@@ -42,11 +42,11 @@ app.use('/api/auth', authRoute)
 app.use('/api/users', userRoute)
 app.use('/api/carts', cartRoute)
 app.use('/api/orders', orderRoute)
-app.use('/api/brands', brandRoute)
 app.use('/api/reviews', reviewRoute)
 app.use('/api/drops', dropRoute)
 app.use('/api/requests', requestRoute)
 app.use('/api/categories', categoryRoute)
+app.use('/api/brands', brandRoute)
 app.use('/api/products', productRoute)
 
 app.post('/upload', verifyTokenAndAdmin, upload.single('image'), (req, res) => {

@@ -1,6 +1,5 @@
 const User = require('../models/User')
 const { verifyTokenAndAuth, verifyTokenAndAdmin } = require('./verifyToken')
-
 const router = require('express').Router()
 
 // UPDATE
@@ -38,7 +37,7 @@ router.delete('/:id', verifyTokenAndAuth, async (req, res) => {
 })
 
 // GET USER
-router.get('/find/:id', verifyTokenAndAdmin, async (req, res) => {
+router.get('/:id', verifyTokenAndAdmin, async (req, res) => {
 	try {
 		const user = await User.findById(req.params.id)
 		const { password, ...others } = user._doc

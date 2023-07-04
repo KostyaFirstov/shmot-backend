@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false
 		},
-		avatar: { String },
+		avatar: String,
 		orders: { type: Number, default: 0 }
 	},
 	{ timestamps: true }
