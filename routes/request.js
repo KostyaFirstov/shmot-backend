@@ -68,7 +68,7 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 
 // GET REQUEST
 
-router.get('/find/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 	try {
 		const postId = req.params.id
 
