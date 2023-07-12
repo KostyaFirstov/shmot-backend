@@ -15,7 +15,11 @@ const reviewRoute = require('./routes/review')
 const dropRoute = require('./routes/drop')
 const requestRoute = require('./routes/request')
 const categoryRoute = require('./routes/category')
-const { verifyTokenAndAdmin } = require('./routes/verifyToken')
+const {
+	verifyTokenAndAdmin,
+	verifyToken,
+	verifyTokenAndAuth
+} = require('./routes/verifyToken')
 
 dotenv.config()
 
@@ -49,7 +53,7 @@ app.use('/api/categories', categoryRoute)
 app.use('/api/brands', brandRoute)
 app.use('/api/products', productRoute)
 
-app.post('/upload', verifyTokenAndAdmin, upload.single('image'), (req, res) => {
+app.post('/upload', verifyToken, upload.single('image'), (req, res) => {
 	res.json({
 		url: `/uploads/${req.file.originalname}`
 	})

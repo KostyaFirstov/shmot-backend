@@ -27,7 +27,7 @@ router.put('/:id', verifyTokenAndAuth, async (req, res) => {
 		const updatedCart = await Cart.findByIdAndUpdate(
 			req.params.id,
 			{
-				$set: req.body
+				$set: { ...req.body }
 			},
 			{ new: true }
 		)
@@ -51,7 +51,7 @@ router.delete('/:id', verifyTokenAndAuth, async (req, res) => {
 
 // GET USER CART
 
-router.get('/find/:id', verifyTokenAndAuth, async (req, res) => {
+router.get('/:id', verifyTokenAndAuth, async (req, res) => {
 	try {
 		const cart = await Cart.findById({ userId: req.params.userId })
 		res.status(200).json(cart)

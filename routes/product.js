@@ -295,10 +295,10 @@ router.get('/', async (req, res) => {
 		} else if (qSearch) {
 			products = await Product.find({
 				$or: [
-					{ title: { $regex: qSearch } },
-					{ brand: { $regex: qSearch } },
-					{ desc: { $regex: qSearch } },
-					{ gender: { $regex: qSearch } },
+					{ title: { $regex: qSearch, $options: 'i' } },
+					{ brand: { $regex: qSearch, $options: 'i' } },
+					{ desc: { $regex: qSearch, $options: 'i' } },
+					{ gender: { $regex: qSearch, $options: 'i' } },
 					{
 						categories: {
 							$in: [qSearch]
